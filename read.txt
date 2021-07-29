@@ -1,0 +1,2 @@
+A simple 2D game like Marion 
+Using C++, SFML
