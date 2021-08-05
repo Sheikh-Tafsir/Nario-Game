@@ -528,3 +528,11 @@
 	<bits/stdc++.h>
 	<time.h>
 
+1614624962 source:d:\c++codes\real projects\nario game\icon.rc
+
+1615134148 source:d:\c++codes\real projects\nario game\main.cpp
+	<SFML/Graphics.hpp>
+	<SFML/Audio.hpp>
+	<bits/stdc++.h>
+	<time.h>
+
