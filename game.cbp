@@ -49,6 +49,7 @@
 		<Linker>
 			<Add directory="D:/softwares/codeblocks+etc/sfml/SFML-2.5.1-windows-gcc-5.1.0-tdm-32-bit/SFML-2.5.1/lib" />
 		</Linker>
+		<Unit filename="file.h" />
 		<Unit filename="icon.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>

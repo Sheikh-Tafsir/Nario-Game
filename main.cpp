@@ -1,7 +1,9 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <bits/stdc++.h>
+#include "file.h"
 #include <time.h>
+
 using namespace sf;
 using namespace std;
 
@@ -13,7 +15,7 @@ int main()
       window.setFramerateLimit(80);
 
       re:
-      int i,j,k,n,m,bas=1,spik=1,f=1,f1,con=1,px=4850,pon=0,snd=0,chr=1,en=1,lvl=1;
+      int i,j,k,n,m,bas=1,spik=1,f=1,f1,con=1,px=4850,pon=0,snd=1,chr=1,en=1,lvl=1;
       int x=400,y=400,h=0,men=-1;
       double dx=0,dy=0;
 
@@ -50,6 +52,12 @@ int main()
       sf::Music music;
       if (!music.openFromFile("music/yeah.ogg")) {
       }
+      sf::Music music1;
+      if (!music1.openFromFile("music/music1.ogg")) {
+      }
+      /*sf::Music music2;
+      if (!music2.openFromFile("music/music2.ogg")) {
+      }*/
 
 
       if(lvl==1){
@@ -550,7 +558,7 @@ int main()
 
             if(men==-1){
                   window.clear();
-                  for(int pk=1;pk<=40;pk++){
+                  for(int pk=1;pk<=100;pk++){
                         window.draw(starting);
                         window.display();
                   }
@@ -560,6 +568,7 @@ int main()
             //menu bar
             else if(men==0){
                   menu:
+
                   men=0;
                   double mx=sf::Mouse::getPosition(window).x;
                   double my=sf::Mouse::getPosition(window).y;
@@ -591,14 +600,23 @@ int main()
                   Sound.setCharacterSize(40);
                   Sound.setPosition(400, 450);
 
+                  sf::Text Highscore;
+                  Highscore.setFont( myFont );
+                  Highscore.setString("Score");
+                  if((mx>=400 && mx<=550) && (my>=550 && my<600))Highscore.setFillColor(sf::Color::Yellow);
+                  else Highscore.setFillColor(sf::Color::White);
+                  Highscore.setStyle(sf::Text::Regular);
+                  Highscore.setCharacterSize(40);
+                  Highscore.setPosition(400, 550);
+
                   sf::Text End;
                   End.setFont( myFont );
                   End.setString("Exit");
-                  if((mx>=400 && mx<=500) && (my>=550 && my<600))End.setFillColor(sf::Color::Yellow);
+                  if((mx>=400 && mx<=500) && (my>=650 && my<700))End.setFillColor(sf::Color::Yellow);
                   else End.setFillColor(sf::Color::White);
                   End.setStyle(sf::Text::Regular);
                   End.setCharacterSize(40);
-                  End.setPosition(400, 550);
+                  End.setPosition(400, 650);
 
 
                   if((mx>=400 && mx<=620) && (my>=350 && my<400) && (sf::Mouse::isButtonPressed(sf::Mouse::Left))){
@@ -607,7 +625,10 @@ int main()
                   else if((mx>=400 && mx<=550) && (my>=450 && my<500) && (sf::Mouse::isButtonPressed(sf::Mouse::Left))){
                         goto sound;
                   }
-                  else if((mx>=400 && mx<=500) && (my>=550 && my<600) && (sf::Mouse::isButtonPressed(sf::Mouse::Left))){
+                  else if((mx>=400 && mx<=600) && (my>=550 && my<600) && (sf::Mouse::isButtonPressed(sf::Mouse::Left))){
+                        goto highscore;
+                  }
+                  else if((mx>=400 && mx<=500) && (my>=650 && my<700) && (sf::Mouse::isButtonPressed(sf::Mouse::Left))){
                         return 0;
                   }
 
@@ -615,6 +636,7 @@ int main()
                   window.draw(menu);
                   window.draw(Start);
                   window.draw(Sound);
+                  window.draw(Highscore);
                   window.draw(End);
                   window.display();
 
@@ -837,6 +859,135 @@ int main()
                   window.display();
             }
 
+            //highscore
+            //highscore
+            else if(men==6){
+                  highscore:
+                  men=6;
+
+                  double mx=sf::Mouse::getPosition(window).x;
+                  double my=sf::Mouse::getPosition(window).y;
+
+
+                  sf::Text Highscore;
+                  Highscore.setFont( myFont );
+                  Highscore.setString("High Score");
+                  Highscore.setFillColor(sf::Color::Cyan);
+                  Highscore.setStyle(sf::Text::Regular);
+                  Highscore.setCharacterSize(50);
+                  Highscore.setPosition(700, 200);
+
+                  sf::Text Gback;
+                  Gback.setFont( myFont );
+                  Gback.setString("Go back");
+                  if((mx>=700 && mx<=900) && (my>=800 && my<=850))Gback.setFillColor(sf::Color::Yellow);
+                  else Gback.setFillColor(sf::Color::White);
+                  Gback.setStyle(sf::Text::Regular);
+                  Gback.setCharacterSize(30);
+                  Gback.setPosition(700, 800);
+
+
+
+                  string str,str1="0",str2="0",str3="0",str4="0",str5="0";
+                  int st,st1,st2,st3,st4,st5;
+                  ifstream file;
+
+                  file.open("highscore.txt");
+                  while(getline(file,str)){
+                        st=(int)(str[0]*10)+(int)(str[1]);
+                        st1=(int)(str1[0]*10)+(int)(str1[1]);
+                        if(st>st1)str1=str;
+                  }
+                  file.close();
+                  sf::Text score1;
+                  score1.setFont( myFont );
+                  score1.setString(str1);
+                  score1.setFillColor(sf::Color::White);
+                  score1.setStyle(sf::Text::Regular);
+                  score1.setCharacterSize(40);
+                  score1.setPosition(700, 300);
+
+                  file.open("highscore.txt");
+                  while(getline(file,str)){
+                        st=(int)(str[0]*10)+(int)(str[1]);
+                        st2=(int)(str2[0]*10)+(int)(str2[1]);
+                        if(st>st2 && st<=st1 && str!=str1)str2=str;
+                  }
+                  file.close();
+                  sf::Text score2;
+                  score2.setFont( myFont );
+                  score2.setString(str2);
+                  score2.setFillColor(sf::Color::White);
+                  score2.setStyle(sf::Text::Regular);
+                  score2.setCharacterSize(40);
+                  score2.setPosition(700, 400);
+
+
+                  file.open("highscore.txt");
+                  while(getline(file,str)){
+                        st=(int)(str[0]*10)+(int)(str[1]);
+                        st3=(int)(str3[0]*10)+(int)(str3[1]);
+                        if(st>st3 && st<=st2 && str!=str2)str3=str;
+                  }
+                  file.close();
+                  sf::Text score3;
+                  score3.setFont( myFont );
+                  score3.setString(str3);
+                  score3.setFillColor(sf::Color::White);
+                  score3.setStyle(sf::Text::Regular);
+                  score3.setCharacterSize(40);
+                  score3.setPosition(700, 500);
+
+
+                  file.open("highscore.txt");
+                  while(getline(file,str)){
+                        st=(int)(str[0]*10)+(int)(str[1]);
+                        st4=(int)(str4[0]*10)+(int)(str4[1]);
+                        if(st>st4 && st<=st3  && str!=str3)str4=str;
+                  }
+                  file.close();
+                  sf::Text score4;
+                  score4.setFont( myFont );
+                  score4.setString(str4);
+                  score4.setFillColor(sf::Color::White);
+                  score4.setStyle(sf::Text::Regular);
+                  score4.setCharacterSize(40);
+                  score4.setPosition(700, 600);
+
+
+                  file.open("highscore.txt");
+                  while(getline(file,str)){
+                        st=(int)(str[0]*10)+(int)(str[1]);
+                        st5=(int)(str5[0]*10)+(int)(str5[1]);
+                        if(st>st5 && st<=st4  && str!=str1)str5=str;
+                  }
+                  file.close();
+                  sf::Text score5;
+                  score5.setFont( myFont );
+                  score5.setString(str5);
+                  score5.setFillColor(sf::Color::White);
+                  score5.setStyle(sf::Text::Regular);
+                  score5.setCharacterSize(40);
+                  score5.setPosition(700, 700);
+
+                  file.close();
+
+                  if((mx>=700 && mx<=900) && (my>=800 && my<=850) && (sf::Mouse::isButtonPressed(sf::Mouse::Left))){
+                        goto menu;
+                  }
+
+                  window.clear();
+                  window.draw(sky);
+                  window.draw(Highscore);
+                  window.draw(score1);
+                  window.draw(score2);
+                  window.draw(score3);
+                  window.draw(score4);
+                  window.draw(score5);
+                  window.draw(Gback);
+                  window.display();
+            }
+
             //pause menu
             //pause menu
             else if(men==8){
@@ -962,367 +1113,372 @@ int main()
                   //if(lvl!=1)goto lv;
 
 
-            //move right
-            f=1;
-            if (Keyboard::isKeyPressed(Keyboard::Right)){
+                  //move right
+                  f=1;
+                  if (Keyboard::isKeyPressed(Keyboard::Right)){
+                        int mx=-1,my=-1;
+                        for (int i=1;i<bas;i++){
+                              if (FloatRect(x,y,65,60).intersects(base[i].getGlobalBounds()) ){
+                                    mx=base[i].getPosition().x;
+                                    my=base[i].getPosition().y;
+                                    f=-1;
+                                    break;
+                              }
+                        }
+                        if(f==1){
+                              sky.move(-5,0);
+                              for (i=1;i<bas;i++){
+                                    base[i].move(-5,0);
+                              }
+                              for (i=1;i<spik;i++){
+                                    spike[i].move(-5,0);
+                              }
+                              for (i=1;i<con;i++){
+                                    coin[i].move(-5,0);
+                              }
+                              for (i=1;i<2;i++){
+                                    zomb[i].move(-5,0);
+                              }
+
+                              if(chr==1)person=Sprite(t7);
+                              else if(chr==2)person=Sprite(t12);
+                              else if(chr==3)person=Sprite(t14);
+                              px-=5;
+                        }
+                  }
+
+                  //move left
+
+                  f=1;
+                  if (Keyboard::isKeyPressed(Keyboard::Left)){
+                        int mx=-1,my=-1;
+                        for (int i=1;i<bas;i++){
+                              if (FloatRect(x-2,y-5,40,60).intersects(base[i].getGlobalBounds()) ){
+                                    mx=base[i].getPosition().x;
+                                    f=-1;
+                                    break;
+                              }
+                        }
+                        if(f==1 && px<4850){
+                              sky.move(5,0);
+                              for (i=1;i<bas;i++){
+                                    base[i].move(5,0);
+                              }
+                              for (i=1;i<spik;i++){
+                                    spike[i].move(5,0);
+                              }
+                              for (i=1;i<con;i++){
+                                    coin[i].move(5,0);
+                              }
+                              for (i=1;i<2;i++){
+                                    zomb[i].move(5,0);
+                              }
+                              if(chr==1)person=Sprite(t8);
+                              else if(chr==2)person=Sprite(t13);
+                              else if(chr==3)person=Sprite(t15);
+                              px+=5;
+                        }
+                  }
+
+                  if (Keyboard::isKeyPressed(Keyboard::Down)){
+                        person.move(0,+10);
+                        y+=5;
+                  }
+
+
+                  //gravity
+                  //gravity
+                  f1=1;
                   int mx=-1,my=-1;
-                  for (int i=1;i<bas;i++){
-                        if (FloatRect(x,y,65,60).intersects(base[i].getGlobalBounds()) ){
-                              mx=base[i].getPosition().x;
-                              my=base[i].getPosition().y;
-                              f=-1;
-                              break;
-                        }
-                  }
-                  if(f==1){
-                        sky.move(-5,0);
-                        for (i=1;i<bas;i++){
-                              base[i].move(-5,0);
-                        }
-                        for (i=1;i<spik;i++){
-                              spike[i].move(-5,0);
-                        }
-                        for (i=1;i<con;i++){
-                              coin[i].move(-5,0);
-                        }
-                        for (i=1;i<2;i++){
-                              zomb[i].move(-5,0);
-                        }
-
-                        if(chr==1)person=Sprite(t7);
-                        else if(chr==2)person=Sprite(t12);
-                        else if(chr==3)person=Sprite(t14);
-                        px-=5;
-                  }
-            }
-
-            //move left
-
-            f=1;
-            if (Keyboard::isKeyPressed(Keyboard::Left)){
-                  int mx=-1,my=-1;
-                  for (int i=1;i<bas;i++){
-                        if (FloatRect(x-2,y-5,40,60).intersects(base[i].getGlobalBounds()) ){
-                              mx=base[i].getPosition().x;
-                              f=-1;
-                              break;
-                        }
-                  }
-                  if(f==1 && px<4850){
-                        sky.move(5,0);
-                        for (i=1;i<bas;i++){
-                              base[i].move(5,0);
-                        }
-                        for (i=1;i<spik;i++){
-                              spike[i].move(5,0);
-                        }
-                        for (i=1;i<con;i++){
-                              coin[i].move(5,0);
-                        }
-                        for (i=1;i<2;i++){
-                              zomb[i].move(5,0);
-                        }
-                        if(chr==1)person=Sprite(t8);
-                        else if(chr==2)person=Sprite(t13);
-                        else if(chr==3)person=Sprite(t15);
-                        px+=5;
-                  }
-            }
-
-            if (Keyboard::isKeyPressed(Keyboard::Down)){
-                  person.move(0,+10);
-                  y+=5;
-            }
-
-
-            //gravity
-
-            f1=1;
-            int mx=-1,my=-1;
-            for (i=1;i<bas;i++){
-                  if ((FloatRect(x,y,50,80)).intersects(base[i].getGlobalBounds()) ){
-                        //my=base[i].getPosition().y;
-                        //if(y+80>=my && my!=1){
-                              f1=-1;
-                              y=y;
-                              break;
-                        //}
-                  }
-            }
-
-            if(f1==1){
-                  //cout<<"a";
-                  dy++;
-                  y+=dy;
-            }
-            else{
-                  cout<<"b";
-
-            }
-
-            //move up
-
-            if (Keyboard::isKeyPressed(Keyboard::Up)){
-                  int f3=-1;
                   for (i=1;i<bas;i++){
-                        if (FloatRect(x,y-70,55,80).intersects(base[i].getGlobalBounds())){
-                              f3=2;
-                              break;
-                        }
-                        else if (FloatRect(x,y-105,55,80).intersects(base[i].getGlobalBounds())){
-                              f3=3;
-                              break;
-                        }
-                        else if (FloatRect(x,y-140,55,80).intersects(base[i].getGlobalBounds())){
-                              f3=4;
-                              break;
+                        if ((FloatRect(x,y,50,80)).intersects(base[i].getGlobalBounds()) ){
+                              //my=base[i].getPosition().y;
+                              //if(y+80>=my && my!=1){
+                                    f1=-1;
+                                    y=y;
+                                    break;
+                              //}
                         }
                   }
 
-
-                  if(f1==-1){
-                        if(f3==2)dy=-4;
-                        else if(f3==4)dy=-15;
-                        else if(f3==3)dy=-11;
-                        else dy=-18;
+                  if(f1==1){
+                        //cout<<"a";
+                        dy++;
                         y+=dy;
                   }
-            }
+                  else{
+                        //cout<<"b";
 
-
-            //death spike
-            for (i=1;i<spik;i++){
-                  if (FloatRect(x+20,y,35,80).intersects(spike[i].getGlobalBounds()) ){
-                        my=spike[i].getPosition().y;
-                        if(y+80>=my && my!=1){
-                              sf::Text dead;
-                              dead.setFont( myFont );
-                              dead.setString("        YOU DIED \n\n FROME THE SPIKE");
-                              dead.setFillColor(sf::Color::Black);
-                              dead.setStyle(sf::Text::Regular);
-                              dead.setCharacterSize(50);
-                              dead.setPosition(600, 400);
-
-                              for(int pk=1;pk<=30;pk++){
-                                    window.clear();
-                                    window.draw(sky);
-                                    window.draw(dead);
-                                    window.display();
-                              }
-                              goto restart;
-                              //f1=-1;
-                              //break;
-                        }
                   }
-            }
 
+                  //move up
 
-
-            //enemy movement+death
-            if(en<=90){
-                  //zomb[1]=Sprite(t16);
-                  zomb[1].move(+3,0);
-                  en++;
-            }
-            else{
-                  //zomb[1]=Sprite(t17);
-                  zomb[1].move(-3,0);
-                  if (en==180)en=0;
-                  en++;
-            }
-
-            for (i=1;i<2;i++){
-                  if (FloatRect(x,y,60,60).intersects(zomb[i].getGlobalBounds()) ){
-                        my=spike[i].getPosition().y;
-                        if(y+80>=my && my!=1){
-                              sf::Text dead;
-                              dead.setFont( myFont );
-                              dead.setString("        YOU DIED \n\n FROME THE ENEMY");
-                              dead.setFillColor(sf::Color::Black);
-                              dead.setStyle(sf::Text::Regular);
-                              dead.setCharacterSize(50);
-                              dead.setPosition(600, 400);
-
-                              for(int pk=1;pk<=30;pk++){
-                                    window.clear();
-                                    window.draw(sky);
-                                    window.draw(dead);
-                                    window.display();
-                              }
-                              goto restart;
-                              //f1=-1;
-                              //break;
-                        }
-                  }
-            }
-
-
-
-            //level pass/win
-
-            if(px<=0 && y>=900){
-
-                  sf::Text Passed;
-                  Passed.setFont( myFont );
-                  Passed.setString("LEVEL PASSED");
-                  Passed.setFillColor(sf::Color::White);
-                  Passed.setStyle(sf::Text::Regular);
-                  Passed.setCharacterSize(50);
-                  Passed.setPosition(600, 400);
-
-                  sf::Text win;
-                  win.setFont( myFont );
-                  win.setString("GAME WIN");
-                  win.setFillColor(sf::Color::White);
-                  win.setStyle(sf::Text::Regular);
-                  win.setCharacterSize(50);
-                  win.setPosition(600, 400);
-
-                  if(lvl==1){
-                        for(int pk=1;pk<=20;pk++){
-                        window.clear();
-                        window.draw(sky);
-                        window.draw(Passed);
-                        window.display();
-                        }
+                  if (Keyboard::isKeyPressed(Keyboard::Up)){
+                        int f3=-1;
                         for (i=1;i<bas;i++){
-                              base[i]=Sprite(t4);
-                              base[i].setPosition(-5000,-5000);
+                              if (FloatRect(x,y-70,55,80).intersects(base[i].getGlobalBounds())){
+                                    f3=2;
+                                    break;
+                              }
+                              else if (FloatRect(x,y-105,55,80).intersects(base[i].getGlobalBounds())){
+                                    f3=3;
+                                    break;
+                              }
+                              else if (FloatRect(x,y-140,55,80).intersects(base[i].getGlobalBounds())){
+                                    f3=4;
+                                    break;
+                              }
+                        }
+
+
+                        if(f1==-1){
+                              if(f3==2)dy=-4;
+                              else if(f3==4)dy=-15;
+                              else if(f3==3)dy=-11;
+                              else dy=-18;
+                              y+=dy;
+                        }
+                  }
+
+
+                  //death spike
+                  for (i=1;i<spik;i++){
+                        if (FloatRect(x+20,y,35,80).intersects(spike[i].getGlobalBounds()) ){
+                              my=spike[i].getPosition().y;
+                              if(y+80>=my && my!=1){
+                                    sf::Text dead;
+                                    dead.setFont( myFont );
+                                    dead.setString("        YOU DIED \n\n FROME THE SPIKE");
+                                    dead.setFillColor(sf::Color::Black);
+                                    dead.setStyle(sf::Text::Regular);
+                                    dead.setCharacterSize(50);
+                                    dead.setPosition(600, 400);
+
+                                    for(int pk=1;pk<=30;pk++){
+                                          window.clear();
+                                          window.draw(sky);
+                                          window.draw(dead);
+                                          window.display();
+                                    }
+                                    func(pon);
+                                    goto restart;
+                                    //f1=-1;
+                                    //break;
+                              }
+                        }
+                  }
+
+
+
+                  //enemy movement+death
+                  if(en<=90){
+                        //zomb[1]=Sprite(t16);
+                        zomb[1].move(+3,0);
+                        en++;
+                  }
+                  else{
+                        //zomb[1]=Sprite(t17);
+                        zomb[1].move(-3,0);
+                        if (en==180)en=0;
+                        en++;
+                  }
+
+                  for (i=1;i<2;i++){
+                        if (FloatRect(x,y,60,60).intersects(zomb[i].getGlobalBounds()) ){
+                              my=spike[i].getPosition().y;
+                              if(y+80>=my && my!=1){
+                                    sf::Text dead;
+                                    dead.setFont( myFont );
+                                    dead.setString("        YOU DIED \n\n FROME THE ENEMY");
+                                    dead.setFillColor(sf::Color::Black);
+                                    dead.setStyle(sf::Text::Regular);
+                                    dead.setCharacterSize(50);
+                                    dead.setPosition(600, 400);
+
+                                    for(int pk=1;pk<=30;pk++){
+                                          window.clear();
+                                          window.draw(sky);
+                                          window.draw(dead);
+                                          window.display();
+                                    }
+                                    func(pon);
+                                    goto restart;
+                                    //f1=-1;
+                                    //break;
+                              }
+                        }
+                  }
+
+
+
+                  //level pass/win
+
+                  if(px<=0 && y>=900){
+
+                        sf::Text Passed;
+                        Passed.setFont( myFont );
+                        Passed.setString("LEVEL PASSED");
+                        Passed.setFillColor(sf::Color::White);
+                        Passed.setStyle(sf::Text::Regular);
+                        Passed.setCharacterSize(50);
+                        Passed.setPosition(600, 400);
+
+                        sf::Text win;
+                        win.setFont( myFont );
+                        win.setString("GAME WIN");
+                        win.setFillColor(sf::Color::White);
+                        win.setStyle(sf::Text::Regular);
+                        win.setCharacterSize(50);
+                        win.setPosition(600, 400);
+
+                        if(lvl==1){
+                              for(int pk=1;pk<=20;pk++){
+                              window.clear();
+                              window.draw(sky);
+                              window.draw(Passed);
+                              window.display();
+                              }
+                              for (i=1;i<bas;i++){
+                                    base[i]=Sprite(t4);
+                                    base[i].setPosition(-5000,-5000);
+                              }
+                              for (i=1;i<spik;i++){
+                                    spike[i]=Sprite(t6);
+                                    spike[i].setPosition(-5000,-5000);
+                              }
+                              for (i=1;i<bas;i++){
+                                    coin[i]=Sprite(t9);
+                                    coin[i].setPosition(-5000,-5000);
+                              }
+                              for (i=1;i<2;i++){
+                                    zomb[i]=Sprite(t9);
+                                    zomb[i].setPosition(-5000,-5000);
+                              }
+
+                              bas=1,spik=1,f=1,f1,con=1,px=4850,en=1,
+                              x=400,y=400,h=0,dx=0,dy=0;
+                              lvl=2;
+
+                              goto level2;
+                        }
+                        else if(lvl==2){
+                              for(int pk=1;pk<=20;pk++){
+                              window.clear();
+                              window.draw(sky);
+                              window.draw(win);
+                              window.display();
+                              }
+                              func(pon);
+                              goto restart;
+                        }
+                  }
+
+
+                  //death falling
+
+                  if(y>=900){
+                        sf::Text dead;
+                        dead.setFont( myFont );
+                        dead.setString("YOU DIED \n\n BY FALLING");
+                        dead.setFillColor(sf::Color::White);
+                        dead.setStyle(sf::Text::Regular);
+                        dead.setCharacterSize(50);
+                        dead.setPosition(600, 400);
+
+                        for(int pk=1;pk<=30;pk++){
+                              window.clear();
+                              window.draw(sky);
+                              window.draw(dead);
+                              window.display();
+                        }
+                        func(pon);
+                        goto restart;
+                  }
+
+
+
+                  //pause
+                  if (Keyboard::isKeyPressed(Keyboard::Escape)){
+                        goto pause;
+                  }
+
+
+                  //points
+                  for (i=1;i<con;i++){
+                        if (FloatRect(x,y+10,50,80).intersects(coin[i].getGlobalBounds()) ){
+                              coin[i].setPosition(7500,7500);
+                              pon++;
+                              if(snd==1){
+                                    if (!music.openFromFile("music/yeah.ogg")) {
+                                    }
+                                    music.play();
+                              }
+                        }
+                  }
+                  string str="Coins " +to_string(pon);
+                  sf::Text poin;
+                  poin.setFont( myFont );
+                  poin.setString(str);
+                  poin.setFillColor(sf::Color::Black);
+                  poin.setStyle(sf::Text::Regular);
+                  poin.setCharacterSize(50);
+                  poin.setPosition(10, 10);
+
+
+
+                  //display
+
+                  person.setPosition(x,y);
+
+                  window.clear();
+                  window.draw(sky);
+                  for(i=1;i<bas;i++){
+                        window.draw(base[i]);
+                  }
+                  for(i=1;i<spik;i++){
+                        window.draw(spike[i]);
+                  }
+                  for(i=1;i<con;i++){
+                        window.draw(coin[i]);
+                  }
+                  for(i=1;i<5;i++){
+                        window.draw(zomb[i]);
+                  }
+                  window.draw(person);
+                  window.draw(poin);
+                  window.display();
+                  /*if (Keyboard::isKeyPressed(Keyboard::Right)){
+                        for (i=1;i<bas;i++){
+                              base[i].move(-25,0);
                         }
                         for (i=1;i<spik;i++){
-                              spike[i]=Sprite(t6);
-                              spike[i].setPosition(-5000,-5000);
+                              spike[i].move(-25,0);
                         }
                         for (i=1;i<bas;i++){
-                              coin[i]=Sprite(t9);
-                              coin[i].setPosition(-5000,-5000);
+                              coin[i].move(-25,0);
+                        }
+                         for (i=1;i<2;i++){
+                              zomb[i].move(-25,0);
+                        }
+                  }
+                  if (Keyboard::isKeyPressed(Keyboard::Left)){
+                        for (i=1;i<bas;i++){
+                              base[i].move(25,0);
+                        }
+                        for (i=1;i<spik;i++){
+                              spike[i].move(25,0);
+                        }
+                        for (i=1;i<bas;i++){
+                              coin[i].move(25,0);
                         }
                         for (i=1;i<2;i++){
-                              zomb[i]=Sprite(t9);
-                              zomb[i].setPosition(-5000,-5000);
+                              zomb[i].move(25,0);
                         }
-
-                        bas=1,spik=1,f=1,f1,con=1,px=4850,pon=0,en=1,
-                        x=400,y=400,h=0,dx=0,dy=0;
-                        lvl=2;
-
-                        goto level2;
-                  }
-                  else if(lvl==2){
-                        for(int pk=1;pk<=20;pk++){
-                        window.clear();
-                        window.draw(sky);
-                        window.draw(win);
-                        window.display();
-                        }
-                        return 0;
-                  }
-            }
-
-
-            //death falling
-
-            if(y>=900){
-                  sf::Text dead;
-                  dead.setFont( myFont );
-                  dead.setString("YOU DIED \n\n BY FALLING");
-                  dead.setFillColor(sf::Color::White);
-                  dead.setStyle(sf::Text::Regular);
-                  dead.setCharacterSize(50);
-                  dead.setPosition(600, 400);
-
-                  for(int pk=1;pk<=30;pk++){
-                        window.clear();
-                        window.draw(sky);
-                        window.draw(dead);
-                        window.display();
-                  }
-                  goto restart;
-            }
-
-
-
-            //pause
-            if (Keyboard::isKeyPressed(Keyboard::Escape)){
-                  goto pause;
-            }
-
-
-            //points
-            for (i=1;i<con;i++){
-                  if (FloatRect(x,y+10,50,80).intersects(coin[i].getGlobalBounds()) ){
-                        coin[i].setPosition(7500,7500);
-                        pon++;
-                        if(snd==1){
-                              if (!music.openFromFile("music/yeah.ogg")) {
-                              }
-                              music.play();
-                        }
-                  }
-            }
-            string str="Coins " +to_string(pon);
-            sf::Text poin;
-            poin.setFont( myFont );
-            poin.setString(str);
-            poin.setFillColor(sf::Color::Black);
-            poin.setStyle(sf::Text::Regular);
-            poin.setCharacterSize(50);
-            poin.setPosition(10, 10);
-
-
-
-            //display
-
-            person.setPosition(x,y);
-
-            window.clear();
-            window.draw(sky);
-            for(i=1;i<bas;i++){
-                  window.draw(base[i]);
-            }
-            for(i=1;i<spik;i++){
-                  window.draw(spike[i]);
-            }
-            for(i=1;i<con;i++){
-                  window.draw(coin[i]);
-            }
-            for(i=1;i<5;i++){
-                  window.draw(zomb[i]);
-            }
-            window.draw(person);
-            window.draw(poin);
-            window.display();
-            /*if (Keyboard::isKeyPressed(Keyboard::Right)){
-                  for (i=1;i<bas;i++){
-                        base[i].move(-25,0);
-                  }
-                  for (i=1;i<spik;i++){
-                        spike[i].move(-25,0);
-                  }
-                  for (i=1;i<bas;i++){
-                        coin[i].move(-25,0);
-                  }
-                   for (i=1;i<2;i++){
-                        zomb[i].move(-25,0);
-                  }
-            }
-            if (Keyboard::isKeyPressed(Keyboard::Left)){
-                  for (i=1;i<bas;i++){
-                        base[i].move(25,0);
-                  }
-                  for (i=1;i<spik;i++){
-                        spike[i].move(25,0);
-                  }
-                  for (i=1;i<bas;i++){
-                        coin[i].move(25,0);
-                  }
-                  for (i=1;i<2;i++){
-                        zomb[i].move(25,0);
-                  }
-            }*/
+                  }*/
 
             }
 
       }
       return 0;
 }
+//strip
