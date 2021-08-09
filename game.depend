@@ -540,3 +540,15 @@
 1628337751 d:\c++codes\real projects\sfml projects\nario game\nario game\file.h
 	<bits/stdc++.h>
 
+1614624962 source:d:\c++codes\real projects\nario game\icon.rc
+
+1628428734 source:d:\c++codes\real projects\nario game\main.cpp
+	<SFML/Graphics.hpp>
+	<SFML/Audio.hpp>
+	<bits/stdc++.h>
+	"file.h"
+	<time.h>
+
+1628337751 d:\c++codes\real projects\nario game\file.h
+	<bits/stdc++.h>
+
