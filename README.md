@@ -1,5 +1,4 @@
 # Nario-Game
-## 2D mario kind of game Using C++, SFML
 
 ## Game Visuals
 ### MENU
