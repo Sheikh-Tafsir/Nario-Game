@@ -1,6 +1,7 @@
 # Nario-Game
 ## 2D mario kind of game Using C++, SFML
 
+## Game Visuals
 ### MENU
 
 ![menu](https://user-images.githubusercontent.com/83116065/128663442-e1b0ec5f-17bb-4b18-87b0-472d0c64025f.gif)
