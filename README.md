@@ -20,3 +20,7 @@
 - Can pause and resume game anytime
 - Highscores will saved and can be seen
 - After dying user can choose to re-try or exit
+
+## Stats
+[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=Sheikh-Tafsir&theme=radical&repo=Nario-Game
+)](https://github.com/anuraghazra/github-readme-stats)
