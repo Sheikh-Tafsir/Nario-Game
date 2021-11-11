@@ -23,3 +23,7 @@
 ## Stats
 [![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=Sheikh-Tafsir&theme=radical&repo=Nario-Game
 )](https://github.com/anuraghazra/github-readme-stats)
+
+
+## Setup Link
+https://drive.google.com/drive/folders/1LBp-N7-8F-W5GhNBHk81imcHLr7Lp5wm
