@@ -21,7 +21,7 @@
 - After dying user can choose to re-try or exit
 
 ## Stats
-[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=Sheikh-Tafsir&repo=Nario-Game
+[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=Sheikh-Tafsir&repo=Nario-Game&theme=radical
 )](https://github.com/anuraghazra/github-readme-stats)
 
 
