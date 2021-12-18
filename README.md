@@ -1,9 +1,9 @@
 <h1 align="center">Nario Game</h1>
 <p align="center">
    <img src="https://img.shields.io/badge/language-c++-red?style"/>
-   <img src="https://img.shields.io/github/license/Sheikh-Tafsir//Nario-Game"/>
-   <img src="https://img.shields.io/github/stars/Sheikh-Tafsir//Nario-Game"/>
-   <img src="https://img.shields.io/github/forks/Sheikh-Tafsir//Nario-Game"/>
+   <img src="https://img.shields.io/github/license/Sheikh-Tafsir/Nario-Game"/>
+   <img src="https://img.shields.io/github/stars/Sheikh-Tafsir/Nario-Game"/>
+   <img src="https://img.shields.io/github/forks/Sheikh-Tafsir/Nario-Game"/>
 </p>
 
 ## Game Visuals
